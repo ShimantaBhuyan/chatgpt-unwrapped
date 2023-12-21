@@ -14,7 +14,7 @@ initDB(DBConfig);
 function App() {
   const { add, getByID } = useIndexedDB("chatgpt-unwrapped");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
+  const [_, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
   const [isAnalysing, setIsAnalysing] = useState(false);
 
   const [isUnwrappedAlready, setIsUnwrappedAlready] = useState(false);
@@ -127,7 +127,6 @@ function App() {
           <h1 className="text-5xl relative md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
             ChatGPT UnWrapped 2023
           </h1>
-          {/* <Background /> */}
           <div className="blob"></div>
           <Loading />
           <p className="mt-20 uppercase font-semibold">

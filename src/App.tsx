@@ -41,6 +41,7 @@ function App() {
   useEffect(() => {
     getByID(1).then((data) => {
       if (
+        data != undefined &&
         // data.length != 0 &&
         data?.categorised != undefined &&
         data?.conversations != undefined &&

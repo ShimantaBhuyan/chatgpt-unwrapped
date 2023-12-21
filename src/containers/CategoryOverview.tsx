@@ -20,7 +20,7 @@ export const CategoryOverview = () => {
 
   useEffect(() => {
     getAll().then((data) => {
-      const groupedConversations = data[data.length - 1].categorised;
+      const groupedConversations = data[data.length - 1]?.categorised;
 
       const categories = Object.keys(groupedConversations);
       const sortedData = categories

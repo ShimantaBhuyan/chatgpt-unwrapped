@@ -260,18 +260,22 @@ function App() {
         <footer className="fixed bottom-0 left-0 z-20 w-full bg-white flex flex-col border-t border-gray-200 shadow-2xl gap-2 items-center justify-center p-4">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
-            <a href="https://twitter.com/AllDevThings" className="underline">
+            <a
+              href="https://twitter.com/AllDevThings"
+              target="_blank"
+              className="underline"
+            >
               DevKrishna
             </a>
             {/* All Rights Reserved. */}
           </span>
           <span>
             This site is not affiliated to{" "}
-            <a href="chat.openai.com" className="underline">
+            <a href="chat.openai.com" target="_blank" className="underline">
               ChatGPT
             </a>{" "}
             and{" "}
-            <a href="https://openai.com/" className="underline">
+            <a href="https://openai.com/" target="_blank" className="underline">
               OpenAI
             </a>
           </span>

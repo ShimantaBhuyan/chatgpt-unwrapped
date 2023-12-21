@@ -9,6 +9,7 @@ import Wrapped from "@/pages/Wrapped";
 import Loading from "@/components/Loading";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import useInterval from "@/lib/poll";
+import { cn } from "./lib/utils";
 
 initDB(DBConfig);
 
@@ -110,6 +111,12 @@ function App() {
       }
     );
 
+    // if(response.status == 500) {
+    //   alert("Something went wrong. Please try again.");
+    //   setIsAnalysing(false);
+    //   return;
+    // }
+
     const data = await response.json();
     if (data.status != "completed") {
       if (data.status === "in_progress") {
@@ -145,7 +152,7 @@ function App() {
 
   if (isMobile) {
     return (
-      <div className="flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20">
+      <div className="flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20 fullPageBackground">
         <h1 className="text-5xl md:text-3xl bricolage text-transparent bg-clip-text font-medium bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
           ChatGPT UnWrapped 2023
         </h1>
@@ -163,7 +170,12 @@ function App() {
     //   redirectUri={import.meta.env.VITE_KINDE_REDIRECT_URI}
     //   logoutUri={import.meta.env.VITE_KINDE_LOGOUT_URI}
     // >
-    <div className="flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20">
+    <div
+      className={cn(
+        "flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20",
+        (!isUnwrappedAlready || !isAnalysing) && "fullPageBackground"
+      )}
+    >
       {isJobRunning || isAnalysing ? (
         <>
           <h1 className="text-5xl relative md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">

@@ -173,7 +173,7 @@ function App() {
     <div
       className={cn(
         "flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20",
-        (!isUnwrappedAlready || !isAnalysing) && "fullPageBackground"
+        !isUnwrappedAlready && !isAnalysing && "fullPageBackground"
       )}
     >
       {isJobRunning || isAnalysing ? (

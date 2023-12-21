@@ -224,59 +224,64 @@ function App() {
           <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
             ChatGPT UnWrapped 2023
           </h1>
-          <div className="flex h-full flex-col items-center justify-between w-full gap-5">
-            {!isUnwrappedAlready ? (
-              <Dialog>
-                <DialogTrigger asChild>
-                  <button className="relative w-[200px] inline-flex items-center justify-center px-6 py-8 overflow-hidden font-medium text-center text-black transition duration-300 ease-out border-2 border-b-4 border-black rounded-full shadow-md group">
-                    {" "}
-                    <span className="absolute inset-0 flex items-center text-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
+          {!isMobile ? (
+            <div className="flex h-full flex-col items-center justify-between w-full gap-5">
+              {!isUnwrappedAlready ? (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="relative w-[200px] inline-flex items-center justify-center px-6 py-8 overflow-hidden font-medium text-center text-black transition duration-300 ease-out border-2 border-b-4 border-black rounded-full shadow-md group">
                       {" "}
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                      <span className="absolute inset-0 flex items-center text-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
                         {" "}
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        ></path>{" "}
-                      </svg>{" "}
-                    </span>{" "}
-                    <span className="absolute flex items-center justify-left text-lg ml-10 w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease gap-8">
-                      {" "}
-                      Get Started{" "}
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="#000"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        ></path>
-                      </svg>
-                    </span>
-                    <span className="relative invisible" />
-                  </button>
-                </DialogTrigger>
-                <DialogContent className="w-3/4 max-w-full p-10 h-full overflow-y-auto justify-center">
-                  <OnboardingPage onSubmit={onGenerate} />
-                </DialogContent>
-              </Dialog>
-            ) : (
-              <Wrapped />
-            )}
-          </div>
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          {" "}
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          ></path>{" "}
+                        </svg>{" "}
+                      </span>{" "}
+                      <span className="absolute flex items-center justify-left text-lg ml-10 w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease gap-8">
+                        {" "}
+                        Get Started{" "}
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="#000"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          ></path>
+                        </svg>
+                      </span>
+                      <span className="relative invisible" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="w-3/4 max-w-full p-10 h-full overflow-y-auto justify-center">
+                    <OnboardingPage onSubmit={onGenerate} />
+                  </DialogContent>
+                </Dialog>
+              ) : (
+                <Wrapped />
+              )}
+            </div>
+          ) : null}
+          <h2 className="text-center">
+            Please open in desktop to generate your ChatGPT Wrapped
+          </h2>
         </>
       )}
 

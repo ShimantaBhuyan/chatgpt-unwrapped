@@ -68,7 +68,7 @@ export const CategoryOverview = () => {
             <BarList
               data={top5Data}
               className="mt-2"
-              color={"#46796233"}
+              color={"#467962"}
               showAnimation
             />
           </Card>
@@ -87,7 +87,7 @@ export const CategoryOverview = () => {
             <BarList
               data={data}
               className="mt-2 overflow-auto max-h-96 pr-3"
-              color={"#46796233"}
+              color={"#467962"}
               showAnimation
             />
           </Card>

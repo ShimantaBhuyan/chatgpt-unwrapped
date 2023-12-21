@@ -129,10 +129,16 @@ function App() {
           </h1>
           <div className="blob"></div>
           <Loading />
-          <p className="mt-20 uppercase font-semibold">
-            Please do not close this tab or the browser window while your
-            ChatGPT UnWrapped 2023 is being generated
-          </p>
+          <div className="flex flex-col gap-5 items-center w-full">
+            <p className="uppercase font-semibold">
+              Please do not close this tab or the browser window while your
+              ChatGPT UnWrapped 2023 is being generated
+            </p>
+            <p className="mt-5 uppercase font-semibold text-sm">
+              It takes around 5 mins to fetch your conversation topics, and then
+              prepare the analysis
+            </p>
+          </div>
         </>
       ) : (
         <>
@@ -143,7 +149,6 @@ function App() {
             {!isUnwrappedAlready ? (
               <Dialog>
                 <DialogTrigger asChild>
-                  {/* <Button variant={"outline"}>Get Started</Button> */}
                   <button className="relative w-[200px] inline-flex items-center justify-center px-6 py-8 overflow-hidden font-medium text-center text-black transition duration-300 ease-out border-2 border-b-4 border-black rounded-full shadow-md group">
                     {" "}
                     <span className="absolute inset-0 flex items-center text-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">

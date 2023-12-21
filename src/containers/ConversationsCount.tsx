@@ -188,6 +188,7 @@ const ConversationCountChart = ({
         colors={[chartColor]}
         // valueFormatter={valueFormatter}
         yAxisWidth={40}
+        showAnimation
       />
     </Card>
   );

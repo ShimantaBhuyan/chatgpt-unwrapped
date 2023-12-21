@@ -65,7 +65,12 @@ export const CategoryOverview = () => {
                 <Bold>Visits</Bold>
               </Text>
             </Flex>
-            <BarList data={top5Data} className="mt-2" />
+            <BarList
+              data={top5Data}
+              className="mt-2"
+              color={"#46796233"}
+              showAnimation
+            />
           </Card>
         </TabsContent>
         <TabsContent value="all">
@@ -79,7 +84,12 @@ export const CategoryOverview = () => {
                 <Bold>Visits</Bold>
               </Text>
             </Flex>
-            <BarList data={data} className="mt-2 overflow-auto max-h-96 pr-3" />
+            <BarList
+              data={data}
+              className="mt-2 overflow-auto max-h-96 pr-3"
+              color={"#46796233"}
+              showAnimation
+            />
           </Card>
         </TabsContent>
       </Tabs>

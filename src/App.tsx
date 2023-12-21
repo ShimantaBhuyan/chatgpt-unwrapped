@@ -8,6 +8,7 @@ import useLocalStorage from "@/lib/use-local-storage";
 import Wrapped from "@/pages/Wrapped";
 import Loading from "@/components/Loading";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import useInterval from "@/lib/poll";
 
 initDB(DBConfig);
 
@@ -15,6 +16,7 @@ function App() {
   const { add, getByID } = useIndexedDB("chatgpt-unwrapped");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
+  const [jobID, setJobID] = useLocalStorage<string>("JOB_ID", "", true);
   const [isAnalysing, setIsAnalysing] = useState(false);
 
   const [isUnwrappedAlready, setIsUnwrappedAlready] = useState(false);
@@ -87,20 +89,45 @@ function App() {
       return;
     }
     const data = await response.json();
-    add({
-      conversations: data.conversations,
-      categorised: data.categorisedMap,
-      userTitle: data.userTitle,
-    }).then(
-      () => {
-        setIsUnwrappedAlready(true);
-      },
-      (error) => {
-        console.log("ERROR: ", error);
-        alert("Something went wrong. Please try again.");
+    setJobID(data.uuid);
+  };
+
+  const POLL_INTERVAL = 15000;
+
+  useInterval(async () => {
+    if (jobID == undefined || jobID.length == 0) {
+      return;
+    }
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_API_ENDPOINT}/progress/${jobID}`,
+      {
+        method: "GET",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        mode: "cors",
       }
     );
-  };
+
+    const data = await response.json();
+    if (data.status != "completed") {
+      return;
+    } else {
+      add({
+        conversations: data.data.conversations,
+        categorised: data.data.categorisedMap,
+        userTitle: data.data.userTitle,
+      }).then(
+        () => {
+          setIsUnwrappedAlready(true);
+        },
+        (error) => {
+          console.log("ERROR: ", error);
+          alert("Something went wrong. Please try again.");
+        }
+      );
+    }
+  }, POLL_INTERVAL);
 
   if (isMobile) {
     return (

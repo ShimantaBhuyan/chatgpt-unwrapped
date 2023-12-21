@@ -95,7 +95,7 @@ function App() {
 
   const POLL_INTERVAL = 15000;
 
-  useInterval(async () => {
+  const pollProgress = async () => {
     if (jobID == undefined || jobID.length == 0) {
       return;
     }
@@ -124,6 +124,8 @@ function App() {
       }).then(
         () => {
           setIsUnwrappedAlready(true);
+          setIsJobRunning(false);
+          setIsAnalysing(false);
         },
         (error) => {
           console.log("ERROR: ", error);
@@ -131,7 +133,15 @@ function App() {
         }
       );
     }
-  }, POLL_INTERVAL);
+  };
+
+  const clearPoll = useInterval(pollProgress, POLL_INTERVAL);
+
+  useEffect(() => {
+    if (!isJobRunning && !isAnalysing && isUnwrappedAlready) {
+      clearPoll();
+    }
+  }, [isJobRunning, isAnalysing, isUnwrappedAlready, clearPoll]);
 
   if (isMobile) {
     return (
@@ -154,7 +164,7 @@ function App() {
     //   logoutUri={import.meta.env.VITE_KINDE_LOGOUT_URI}
     // >
     <div className="flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20">
-      {isAnalysing ? (
+      {isJobRunning || isAnalysing ? (
         <>
           <h1 className="text-5xl relative md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
             ChatGPT UnWrapped 2023
@@ -162,11 +172,9 @@ function App() {
           <div className="blob"></div>
           <Loading />
           <div className="flex flex-col gap-5 items-center w-full">
-            {isJobRunning ? (
-              <p className="mt-5 uppercase font-semibold text-sm">
-                Your ChatGPT UnWrapped is being prepared. Please wait...
-              </p>
-            ) : null}
+            <p className="mt-5 uppercase font-semibold text-sm">
+              Your ChatGPT UnWrapped is being prepared. Please wait...
+            </p>
             <p className="mt-5 uppercase text-sm">
               It takes around 5 mins to fetch your conversation topics, and then
               prepare the analysis

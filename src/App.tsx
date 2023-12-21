@@ -17,6 +17,7 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
   const [jobID, setJobID] = useLocalStorage<string>("JOB_ID", "", true);
+  const [isJobRunning, setIsJobRunning] = useState(false);
   const [isAnalysing, setIsAnalysing] = useState(false);
 
   const [isUnwrappedAlready, setIsUnwrappedAlready] = useState(false);
@@ -111,6 +112,9 @@ function App() {
 
     const data = await response.json();
     if (data.status != "completed") {
+      if (data.status === "in_progress") {
+        setIsJobRunning(true);
+      }
       return;
     } else {
       add({
@@ -158,11 +162,12 @@ function App() {
           <div className="blob"></div>
           <Loading />
           <div className="flex flex-col gap-5 items-center w-full">
-            <p className="uppercase font-semibold">
-              Please do not close this tab or the browser window while your
-              ChatGPT UnWrapped 2023 is being generated
-            </p>
-            <p className="mt-5 uppercase font-semibold text-sm">
+            {isJobRunning ? (
+              <p className="mt-5 uppercase font-semibold text-sm">
+                Your ChatGPT UnWrapped is being prepared. Please wait...
+              </p>
+            ) : null}
+            <p className="mt-5 uppercase text-sm">
               It takes around 5 mins to fetch your conversation topics, and then
               prepare the analysis
             </p>

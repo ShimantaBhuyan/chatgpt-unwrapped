@@ -33,7 +33,7 @@ function Loading() {
   }, []);
 
   return (
-    <div className="text-xl font-medium text-gray-400 animate-pulse justify-self-end">
+    <div className="text-xl font-medium text-gray-800 animate-pulse justify-self-end bg-clip-text">
       {messages[message]}
     </div>
   );

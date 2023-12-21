@@ -1,67 +1,54 @@
-// import { LOCAL_STORAGE_KEY } from "@/lib/constants";
-// import useLocalStorage from "@/lib/use-local-storage";
-
 import { useEffect, useState } from "react";
-import { parseISO, getYear } from "date-fns";
-import {
-  CONVERSATIONS /* LOCAL_STORAGE_KEY */,
-  //   TEST_CATEGORISED_TITLES,
-} from "@/lib/constants";
+import { getYear } from "date-fns";
+import { Conversation } from "@/lib/constants";
+import { useIndexedDB } from "react-indexed-db-hook";
 // import useLocalStorage from "@/lib/use-local-storage";
 import { ConversationsCount } from "@/containers/ConversationsCount";
 import { ConversationsCountOverview } from "@/containers/ConversationsCountOverview";
 import { CategoryOverview } from "@/containers/CategoryOverview";
-
-interface Conversation {
-  id: string;
-  title: string;
-  create_time: string;
-  update_time: string;
-  mapping: unknown | null;
-  current_node: unknown | null;
-  conversation_template_id: unknown | null;
-  gizmo_id: unknown | null;
-  is_archived: boolean;
-  workspace_id: unknown | null;
-}
+import Counter from "@/components/Counter";
 
 const Wrapped = () => {
+  const { getByID } = useIndexedDB("chatgpt-unwrapped");
   //   const [key, _] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
-  const [conversations, setConversations] = useState<Conversation[]>(
-    CONVERSATIONS.items
-  );
-  //   const [categorisedConversations, setCategorisedConversations] = useState<
-  //     Array<Record<string, string>>
-  //   >([]);
+  const [allConversationsCount, setAllConversationsCount] = useState(0);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [userTitle, setUserTitle] = useState("");
 
   useEffect(() => {
-    const filteredData = conversations.filter((item) => {
-      // Use the getYear method from date-fns to get the year from the create_time property
-      const year = getYear(parseISO(item.create_time));
-      // Check if the year is 2023
-      return year === 2023;
+    getByID(1).then((data) => {
+      setAllConversationsCount(data.conversations.length);
+      const filteredData = data.conversations.filter((item: Conversation) => {
+        // Use the getYear method from date-fns to get the year from the create_time property
+        const year = getYear(new Date(item.create_time));
+        // Check if the year is 2023
+        return year === 2023;
+      });
+      setConversations(filteredData);
+      setUserTitle(data.userTitle);
     });
-
-    setConversations(filteredData);
-
-    // // TODO: make api call to get categories OR get fromearlier api call response
-    // const groupedConversations = TEST_CATEGORISED_TITLES;
-
-    // const categories = Object.keys(groupedConversations);
-    // console.log({ categories });
-
-    // console.log({ groupedConversations });
-
-    // setCategorisedConversations(
-    //   JSON.parse(JSON.stringify(TEST_CATEGORISED_TITLES))
-    // );
-  }, []);
+  }, [getByID]);
 
   return (
     <div className="flex flex-col w-full max-w-3xl lg:max-w-full gap-20">
+      <div className="w-full flex flex-col gap-4">
+        <h2 className="text-2xl text-center font-semibold tracking-tight underline">
+          {userTitle}
+        </h2>
+        {allConversationsCount != 0 ? (
+          <h2 className="text-xl text-center">
+            You had <Counter value={allConversationsCount} /> conversations in
+            2023!
+          </h2>
+        ) : null}
+      </div>
       <CategoryOverview />
-      <ConversationsCountOverview conversations={conversations} />
-      <ConversationsCount conversations={conversations} />
+      {conversations.length > 0 ? (
+        <ConversationsCountOverview conversations={conversations} />
+      ) : null}
+      {conversations.length > 0 ? (
+        <ConversationsCount conversations={conversations} />
+      ) : null}
     </div>
   );
 };

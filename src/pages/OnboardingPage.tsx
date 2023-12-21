@@ -6,9 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
-import useLocalStorage from "@/lib/use-local-storage";
+// import useLocalStorage from "@/lib/use-local-storage";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Grid } from "@tremor/react";
@@ -91,34 +92,34 @@ const InstallSteps = () => {
   );
 };
 
-const OnboardingPage = () => {
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const OnboardingPage = ({
+  onSubmit,
+}: {
+  onSubmit: (token: string) => void;
+}) => {
+  //   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [token, setToken] = useState<string>("");
+
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === LOCAL_STORAGE_KEY) {
-      setKey(value);
-      // OpenAI.setKey(value);
+      setToken(value);
     }
-  };
-
-  const onSubmit = async () => {
-    setIsSubmitting(true);
-    if (!key) {
-      alert("Please enter your OpenAI session key");
-      setIsSubmitting(false);
-    }
-
-    // TODO: Get conversations from chatGPT and then get ChatGPT Wrapped data
-    console.log("Preparing your ChatGPT Wrapped, please wait...");
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 3000);
   };
 
   return (
     <div className={cn("flex flex-col w-full max-w-3xl space-y-4")}>
+      <h2 className="text-lg text-center tracking-tight underline">
+        Please follow the instructions below to generate your ChatGPT UnWrapped
+        2023.
+      </h2>
+      <p className="text-center tracking-tight">
+        Note that your token is{" "}
+        <span className="font-semibold">not stored</span> on our servers, and it
+        will be only used to fetch the titles of your conversations
+      </p>
       <Grid numItems={1} className="gap-4 w-full">
         <Card>
           {/* <CardHeader>
@@ -132,10 +133,10 @@ const OnboardingPage = () => {
             <div className="flex flex-col justify-center gap-1.5">
               <CardTitle className="text-2xl">Instructions</CardTitle>
               <CardDescription>
-                Paste your ChatGPT session token below to get started. We use
-                your ChatGPT session token to call the ChatGPT API and create
-                your dashboard. This does not cost you and we do not store your
-                key on our servers.
+                Copy &amp; Paste your ChatGPT session token below by following
+                the steps to get started. We use your ChatGPT session token to
+                call the ChatGPT API fetch your conversation titles only. This
+                does not cost you and we do not store your key on our servers.
               </CardDescription>
             </div>
           </CardHeader>
@@ -144,7 +145,7 @@ const OnboardingPage = () => {
               <InstallSteps />
             </ScrollArea>
             <Card>
-              <CardHeader className="flex-row gap-4 items-center">
+              <CardHeader className="flex-col gap-4 items-center">
                 <CardTitle className="flex gap-2 flex-row items-center">
                   Token:
                 </CardTitle>
@@ -153,12 +154,12 @@ const OnboardingPage = () => {
                   name={LOCAL_STORAGE_KEY}
                   onChange={onChange}
                   required
-                  value={key ?? ""}
+                  value={token ?? ""}
                   className="my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
                   placeholder="5q293fh..."
                 />
-                <Button onClick={onSubmit} disabled={isSubmitting}>
-                  Get your ChatGPT Wrapped!
+                <Button onClick={() => onSubmit(token)} disabled={token === ""}>
+                  Get your ChatGPT UnWrapped!
                 </Button>
               </CardHeader>
             </Card>

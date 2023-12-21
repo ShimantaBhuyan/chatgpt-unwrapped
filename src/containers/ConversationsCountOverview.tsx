@@ -1,36 +1,42 @@
 import Counter from "@/components/Counter";
+import { Conversation } from "@/lib/constants";
 import { Card, Grid, Text } from "@tremor/react";
 import {
-  parseISO,
+  // parseISO,
   getDayOfYear,
   getISOWeek,
   format,
   startOfYear,
   addDays,
 } from "date-fns";
+import { useEffect, useState } from "react";
 
-interface Conversation {
-  id: string;
-  title: string;
-  create_time: string;
-  update_time: string;
-  mapping: unknown | null;
-  current_node: unknown | null;
-  conversation_template_id: unknown | null;
-  gizmo_id: unknown | null;
-  is_archived: boolean;
-  workspace_id: unknown | null;
-}
+// Define types for most active insights
+type MostActiveDays = { day: string; Conversations: number };
+type MostActiveWeeks = { week: string; Conversations: number };
+type MostActiveMonths = { month: string; Conversations: number };
 
-const MostActiveCount = ({
+// const MostActiveCount = ({
+//   conversations,
+// }: {
+//   conversations: Conversation[];
+// }) => {
+
+//   const mostActiveInsights = findMostActivePeriods(conversations);
+
+//   return mostActiveInsights;
+// };
+
+export const ConversationsCountOverview = ({
   conversations,
 }: {
   conversations: Conversation[];
 }) => {
-  // Define types for most active insights
-  type MostActiveDays = { day: string; Conversations: number };
-  type MostActiveWeeks = { week: string; Conversations: number };
-  type MostActiveMonths = { month: string; Conversations: number };
+  const [insights, setInsights] = useState<{
+    mostActiveDays: MostActiveDays;
+    mostActiveWeeks: MostActiveWeeks;
+    mostActiveMonths: MostActiveMonths;
+  }>();
 
   // Define a function to find the most active days, weeks, and months
   function findMostActivePeriods(data: Conversation[]): {
@@ -41,7 +47,7 @@ const MostActiveCount = ({
     // Group conversations by day, week, and month
     const groupedConversationsByDay: Record<string, number> = data.reduce(
       (acc, item) => {
-        const create_time = parseISO(item.create_time.toString());
+        const create_time = new Date(item.create_time.toString());
         const key = `Day ${getDayOfYear(create_time)}`;
 
         //   @ts-expect-error: damn typescript!
@@ -53,7 +59,7 @@ const MostActiveCount = ({
 
     const groupedConversationsByWeek: Record<string, number> = data.reduce(
       (acc, item) => {
-        const create_time = parseISO(item.create_time.toString());
+        const create_time = new Date(item.create_time.toString());
         const key = `Week ${getISOWeek(create_time)}`;
         //   @ts-expect-error: damn typescript!
         acc[key] = (acc[key] || 0) + 1;
@@ -64,7 +70,7 @@ const MostActiveCount = ({
 
     const groupedConversationsByMonth: Record<string, number> = data.reduce(
       (acc, item) => {
-        const create_time = parseISO(item.create_time.toString());
+        const create_time = new Date(item.create_time.toString());
         const key = format(create_time, "MMMM");
         //   @ts-expect-error: damn typescript!
         acc[key] = (acc[key] || 0) + 1;
@@ -74,10 +80,18 @@ const MostActiveCount = ({
     );
 
     // Find the most active days, weeks, and months
+    // const mostActiveDays: MostActiveDays = Object.entries(
+    //   groupedConversationsByDay
+    // ).reduce(
+    //   (max, [day, count]) =>
+    //     count > max.Conversations ? { day, Conversations: count } : max,
+    //   { day: "", Conversations: 0 }
+    // );
+    // Sort groupedConversationsByDay by the number of conversations in descending order and get the first entry
     const mostActiveDays: MostActiveDays = Object.entries(
       groupedConversationsByDay
     ).reduce(
-      (max, [day, count]) =>
+      (max: MostActiveDays, [day, count]) =>
         count > max.Conversations ? { day, Conversations: count } : max,
       { day: "", Conversations: 0 }
     );
@@ -107,34 +121,69 @@ const MostActiveCount = ({
     return { mostActiveDays, mostActiveWeeks, mostActiveMonths };
   }
 
-  const mostActiveInsights = findMostActivePeriods(conversations);
+  useEffect(() => {
+    const insights = findMostActivePeriods(conversations);
+    setInsights(insights);
+  }, [conversations]);
 
-  return mostActiveInsights;
-};
+  // const categories = [
+  //   {
+  //     title: "Most Active Day",
+  //     metric: insights.mostActiveDays.Conversations,
+  //     date: insights.mostActiveDays.day,
+  //   },
+  //   {
+  //     title: "Most Active Week",
+  //     metric: insights.mostActiveWeeks.Conversations,
+  //     date: insights.mostActiveWeeks.week,
+  //   },
+  //   {
+  //     title: "Most Active Month",
+  //     metric: insights.mostActiveMonths.Conversations,
+  //     date: insights.mostActiveMonths.month,
+  //   },
+  // ];
 
-export const ConversationsCountOverview = ({
-  conversations,
-}: {
-  conversations: Conversation[];
-}) => {
-  const insights = MostActiveCount({ conversations });
-  const categories = [
+  const [categories, setCategories] = useState([
     {
       title: "Most Active Day",
-      metric: insights.mostActiveDays.Conversations,
-      date: insights.mostActiveDays.day,
+      metric: insights?.mostActiveDays.Conversations,
+      date: insights?.mostActiveDays.day,
     },
     {
       title: "Most Active Week",
-      metric: insights.mostActiveWeeks.Conversations,
-      date: insights.mostActiveWeeks.week,
+      metric: insights?.mostActiveWeeks.Conversations,
+      date: insights?.mostActiveWeeks.week,
     },
     {
       title: "Most Active Month",
-      metric: insights.mostActiveMonths.Conversations,
-      date: insights.mostActiveMonths.month,
+      metric: insights?.mostActiveMonths.Conversations,
+      date: insights?.mostActiveMonths.month,
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    if (insights) {
+      setCategories([
+        {
+          title: "Most Active Day",
+          metric: insights.mostActiveDays.Conversations,
+          date: insights.mostActiveDays.day,
+        },
+        {
+          title: "Most Active Week",
+          metric: insights.mostActiveWeeks.Conversations,
+          date: insights.mostActiveWeeks.week,
+        },
+        {
+          title: "Most Active Month",
+          metric: insights.mostActiveMonths.Conversations,
+          date: insights.mostActiveMonths.month,
+        },
+      ]);
+    }
+  }, [insights]);
+
   return (
     <div className="w-full flex flex-col gap-5">
       <h2 className="lg:text-xl">
@@ -151,7 +200,10 @@ export const ConversationsCountOverview = ({
             <Text className="text-lg text-black">{item.title}</Text>
             <div className="flex gap-2 items-end">
               {/* <Metric>{item.metric}</Metric> */}
-              <Counter value={item.metric} classes="text-3xl font-medium" />
+              <Counter
+                value={item.metric ?? 0}
+                classes="text-3xl font-medium"
+              />
               <p className="text-sm text-gray-500">convos</p>
             </div>
             <Text>{item.date}</Text>

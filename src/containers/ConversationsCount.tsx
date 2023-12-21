@@ -1,7 +1,7 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, Title, LineChart } from "@tremor/react";
 import {
-  parseISO,
+  // parseISO,
   getDayOfYear,
   getISOWeek,
   getMonth,
@@ -12,21 +12,8 @@ import {
 } from "date-fns";
 import { useState, useEffect } from "react";
 import Heatmap from "./Heatmap";
-import { Week } from "@/lib/constants";
+import { Conversation, Week } from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
-
-interface Conversation {
-  id: string;
-  title: string;
-  create_time: string;
-  update_time: string;
-  mapping: unknown | null;
-  current_node: unknown | null;
-  conversation_template_id: unknown | null;
-  gizmo_id: unknown | null;
-  is_archived: boolean;
-  workspace_id: unknown | null;
-}
 
 export const ConversationsCount = ({
   conversations,
@@ -37,7 +24,6 @@ export const ConversationsCount = ({
   const [weeklyGroups, setWeeklyGroups] = useState<WeeklyResponse[]>([]);
   const [monthlyGroups, setMonthlyGroups] = useState<MonthlyResponse[]>([]);
   const [isMobile] = useLocalStorage<boolean>("IS_MOBILE", undefined, true);
-  console.log({ isMobile });
 
   type DailyResponse = { day: string; Conversations: number };
   type WeeklyResponse = { week: string; Conversations: number };
@@ -52,7 +38,7 @@ export const ConversationsCount = ({
 
     // Group conversations by day, week, or month
     const groupedConversations = data.reduce((acc, item) => {
-      const create_time = parseISO(item.create_time);
+      const create_time = new Date(item.create_time);
       const key =
         timeUnit === "day"
           ? getDayOfYear(create_time)
@@ -108,7 +94,6 @@ export const ConversationsCount = ({
       "month"
     ) as MonthlyResponse[];
 
-    console.log({ dailyGroups, weeklyGroups, monthlyGroups });
     setDailyGroups(dailyGroups);
     setWeeklyGroups(weeklyGroups);
     setMonthlyGroups(monthlyGroups);
@@ -139,8 +124,6 @@ export const ConversationsCount = ({
       {} as Record<string, Week>
     );
 
-    // Convert grouped data to an array of weeks
-    console.log(groupedByWeek);
     return Object.values(groupedByWeek);
   }
 
@@ -148,9 +131,7 @@ export const ConversationsCount = ({
     <div className="flex flex-col w-full">
       <Tabs defaultValue="month" className="w-full">
         <div className="flex w-full justify-between items-center">
-          <h2 className="lg:text-xl">
-            ChatGPT in Motion: Tracking Conversation Fluctuations
-          </h2>
+          <h2 className="lg:text-xl">Your ChatGPT conversations in Motion</h2>
           <TabsList>
             <TabsTrigger value="month">Monthly</TabsTrigger>
             <TabsTrigger value="week">Weekly</TabsTrigger>

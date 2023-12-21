@@ -1,5 +1,4 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { TEST_CATEGORISED_TITLES } from "@/lib/constants";
 import {
   BarList,
   Bold,
@@ -9,8 +8,10 @@ import {
   //   Title,
 } from "@tremor/react";
 import { useEffect, useState } from "react";
+import { useIndexedDB } from "react-indexed-db-hook";
 
 export const CategoryOverview = () => {
+  const { getAll } = useIndexedDB("chatgpt-unwrapped");
   const [data, setData] = useState<Array<{ name: string; value: number }>>([]);
 
   const [top5Data, setTop5Data] = useState<
@@ -18,24 +19,24 @@ export const CategoryOverview = () => {
   >([]);
 
   useEffect(() => {
-    // TODO: make api call to get categories OR get fromearlier api call response
-    // remove conversations with topic "New chat" : not needed if filtered when sending titles itself
-    const groupedConversations = TEST_CATEGORISED_TITLES;
+    getAll().then((data) => {
+      const groupedConversations = data[data.length - 1].categorised;
 
-    const categories = Object.keys(groupedConversations);
-    const sortedData = categories
-      .map((category) => {
-        return {
-          name: category,
-          // @ts-expect-error: damn typescript!
-          value: groupedConversations[category].length,
-        };
-      })
-      .sort((a, b) => b.value - a.value);
-    // set top 5 only
-    setTop5Data(sortedData.slice(0, 5));
-    setData(sortedData);
-  }, []);
+      const categories = Object.keys(groupedConversations);
+      const sortedData = categories
+        .map((category) => {
+          return {
+            name: category,
+            value: groupedConversations[category].length,
+          };
+        })
+        .sort((a, b) => b.value - a.value);
+      // set top 5 only
+      setTop5Data(sortedData.slice(0, 5));
+      setData(sortedData);
+    });
+    // const groupedConversations = TEST_CATEGORISED_TITLES;
+  }, [getAll]);
 
   return (
     <div className="w-full flex flex-col gap-5">

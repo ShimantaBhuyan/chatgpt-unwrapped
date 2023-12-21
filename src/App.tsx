@@ -172,7 +172,7 @@ function App() {
     // >
     <div
       className={cn(
-        "flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20",
+        "flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20 pb-24",
         !isUnwrappedAlready && !isAnalysing && "fullPageBackground"
       )}
     >
@@ -255,6 +255,28 @@ function App() {
           </div>
         </>
       )}
+
+      {isJobRunning || isAnalysing ? (
+        <footer className="fixed bottom-0 left-0 z-20 w-full bg-white flex flex-col border-t border-gray-200 shadow-2xl gap-2 items-center justify-center p-4">
+          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+            © 2023{" "}
+            <a href="https://twitter.com/AllDevThings" className="underline">
+              DevKrishna
+            </a>
+            {/* All Rights Reserved. */}
+          </span>
+          <span>
+            This site is not affiliated to{" "}
+            <a href="chat.openai.com" className="underline">
+              ChatGPT
+            </a>{" "}
+            and{" "}
+            <a href="https://openai.com/" className="underline">
+              OpenAI
+            </a>
+          </span>
+        </footer>
+      ) : null}
     </div>
     // </KindeProvider>
   );

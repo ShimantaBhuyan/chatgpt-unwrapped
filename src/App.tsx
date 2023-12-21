@@ -173,11 +173,13 @@ function App() {
           <Loading />
           <div className="flex flex-col gap-5 items-center w-full">
             <p className="mt-5 uppercase font-semibold text-sm">
-              Your ChatGPT UnWrapped is being prepared. Please wait...
+              Your ChatGPT UnWrapped is being prepared. You can come to the site
+              later and check the results.
             </p>
             <p className="mt-5 uppercase text-sm">
-              It takes around 5 mins to fetch your conversation topics, and then
-              prepare the analysis
+              It generally takes around 5 mins to fetch your conversation
+              topics, and then prepare the analysis. Can take longer based on
+              the number of your conversations
             </p>
           </div>
         </>

@@ -27,7 +27,7 @@ function App() {
   );
 
   function handleWindowSizeChange() {
-    setIsMobile(window.innerWidth <= 768);
+    setIsMobile(window.outerWidth <= 800);
   }
 
   useEffect(() => {
@@ -42,9 +42,9 @@ function App() {
     getByID(1).then((data) => {
       if (
         // data.length != 0 &&
-        data.categorised != undefined &&
-        data.conversations != undefined &&
-        data.conversations.length > 0
+        data?.categorised != undefined &&
+        data?.conversations != undefined &&
+        data?.conversations.length > 0
       ) {
         setIsUnwrappedAlready(true);
       } else {

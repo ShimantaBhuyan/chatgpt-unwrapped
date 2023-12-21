@@ -14,10 +14,13 @@ const Wrapped = () => {
   const [allConversationsCount, setAllConversationsCount] = useState(0);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [userTitle, setUserTitle] = useState("");
+  //   const [totalMinutesSpent, setTotalMinutesSpent] = useState(0);
 
   useEffect(() => {
     getByID(1).then((data) => {
       setAllConversationsCount(data.conversations.length);
+      //   const totalTimeSpent = calculateTotalMinutesSpent(data.conversations);
+      //   setTotalMinutesSpent(totalTimeSpent);
       const filteredData = data.conversations.filter((item: Conversation) => {
         // Use the getYear method from date-fns to get the year from the create_time property
         const year = getYear(new Date(item.create_time));
@@ -29,6 +32,21 @@ const Wrapped = () => {
     });
   }, [getByID]);
 
+  //   LOGIC INCORRECT, TODO LATER
+  //   const calculateTotalMinutesSpent = (conversations: Conversation[]) => {
+  //     console.log({ conversations });
+  //     let totalMinutesSpent = 0;
+  //     conversations.forEach((conversation, index) => {
+  //       const duration = differenceInMinutes(
+  //         new Date(conversation.update_time),
+  //         new Date(conversation.create_time)
+  //       );
+  //       console.log({ duration, topic: conversation.title, index });
+  //       totalMinutesSpent += duration;
+  //     });
+  //     return totalMinutesSpent;
+  //   };
+
   return (
     <div className="flex flex-col w-full max-w-3xl lg:max-w-full gap-20">
       <div className="w-full flex flex-col gap-4">
@@ -36,10 +54,15 @@ const Wrapped = () => {
           {userTitle}
         </h2>
         {allConversationsCount != 0 ? (
-          <h2 className="text-xl text-center">
-            You had <Counter value={allConversationsCount} /> conversations in
-            2023!
-          </h2>
+          <>
+            <h2 className="text-xl text-center">
+              You had <Counter value={allConversationsCount} /> conversations in
+              2023!
+            </h2>
+            {/* <h2 className="text-xl text-center">
+              And spent <Counter value={totalMinutesSpent} /> minutes in total!
+            </h2> */}
+          </>
         ) : null}
       </div>
       <CategoryOverview />

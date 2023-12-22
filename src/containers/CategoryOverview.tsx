@@ -69,7 +69,7 @@ export const CategoryOverview = () => {
               data={top5Data}
               className="mt-2"
               color="emerald"
-              showAnimation
+              showAnimation={true}
             />
           </Card>
         </TabsContent>
@@ -88,7 +88,7 @@ export const CategoryOverview = () => {
               data={data}
               className="mt-2 overflow-auto max-h-96 pr-3"
               color="emerald"
-              showAnimation
+              showAnimation={true}
             />
           </Card>
         </TabsContent>

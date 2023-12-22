@@ -287,15 +287,16 @@ function App() {
                       <OnboardingPage onSubmit={onGenerate} />
                     </DialogContent>
                   </Dialog>
-                  <h2 className="text-center">
-                    Please open in desktop to generate your ChatGPT Wrapped
-                  </h2>
                 </>
               ) : (
                 <Wrapped />
               )}
             </div>
-          ) : null}
+          ) : (
+            <h2 className="text-center">
+              Please open in desktop to generate your ChatGPT Wrapped
+            </h2>
+          )}
         </>
       )}
 

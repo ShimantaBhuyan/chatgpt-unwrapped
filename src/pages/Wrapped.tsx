@@ -12,6 +12,7 @@ const Wrapped = () => {
   const { getByID } = useIndexedDB("chatgpt-unwrapped");
   //   const [key, _] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
   const [allConversationsCount, setAllConversationsCount] = useState(0);
+  const [allCategoriesCount, setAllCategoriesCount] = useState(0);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [userTitle, setUserTitle] = useState("");
   //   const [totalMinutesSpent, setTotalMinutesSpent] = useState(0);
@@ -19,6 +20,7 @@ const Wrapped = () => {
   useEffect(() => {
     getByID(1).then((data) => {
       setAllConversationsCount(data.conversations.length);
+      setAllCategoriesCount(Object.keys(data.categorised).length);
       //   const totalTimeSpent = calculateTotalMinutesSpent(data.conversations);
       //   setTotalMinutesSpent(totalTimeSpent);
       const filteredData = data.conversations.filter((item: Conversation) => {
@@ -56,7 +58,8 @@ const Wrapped = () => {
         {allConversationsCount != 0 ? (
           <>
             <h2 className="text-xl text-center">
-              You had <Counter value={allConversationsCount} /> conversations in
+              You had <Counter value={allConversationsCount} /> conversations
+              spanning <Counter value={allCategoriesCount} /> categories in
               2023!
             </h2>
             {/* <h2 className="text-xl text-center">

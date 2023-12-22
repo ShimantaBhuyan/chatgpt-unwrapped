@@ -42,5 +42,10 @@ export default function Counter({
     [springValue]
   );
 
-  return <span className={cn("text-2xl", classes)} ref={ref} />;
+  return (
+    <span
+      className={cn("text-2xl w-fit tabular-nums tracking-tighter", classes)}
+      ref={ref}
+    />
+  );
 }

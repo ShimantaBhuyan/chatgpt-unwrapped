@@ -164,6 +164,9 @@ function App() {
           <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
             ChatGPT UnWrapped 2023
           </h1>
+          <h2 className="text-lg font-semibold">
+            Over 10,000 conversations unwrapped!
+          </h2>
         </div>
         <h2 className="text-center">
           Please open in desktop to generate your ChatGPT Wrapped
@@ -220,6 +223,9 @@ function App() {
             <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
               ChatGPT UnWrapped 2023
             </h1>
+            <h2 className="text-lg font-semibold">
+              Over 10,000 conversations unwrapped!
+            </h2>
           </div>
           <div className="blob"></div>
           <Loading />
@@ -242,6 +248,11 @@ function App() {
             <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
               ChatGPT UnWrapped 2023
             </h1>
+            {!isUnwrappedAlready && (
+              <h2 className="text-lg font-semibold">
+                Over 10,000 conversations unwrapped!
+              </h2>
+            )}
           </div>
           {!isMobile ? (
             <div className="flex h-full flex-col items-center w-full">

@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import useInterval from "@/lib/poll";
 import { cn } from "./lib/utils";
 import AnimatedLogo from "@/assets/animated_logo.svg?react";
+import ShowcaseImage from "@/assets/showcase.png";
 
 initDB(DBConfig);
 
@@ -34,7 +35,7 @@ function App() {
   );
 
   function handleWindowSizeChange() {
-    setIsMobile(window.outerWidth <= 800);
+    setIsMobile(window.innerWidth <= 800);
   }
 
   useEffect(() => {
@@ -157,7 +158,7 @@ function App() {
 
   if (isMobile) {
     return (
-      <div className="flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20 fullPageBackground">
+      <div className="flex min-h-screen flex-col justify-center items-center p-8 pb-10 lg:p-24 lg:pt-16 gap-20 fullPageBackground">
         <div className="flex flex-col gap-5 items-center justify-center">
           <AnimatedLogo className="w-20 h-20" />
           <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
@@ -167,7 +168,8 @@ function App() {
         <h2 className="text-center">
           Please open in desktop to generate your ChatGPT Wrapped
         </h2>
-        <footer className="fixed bottom-0 left-0 z-20 w-full bg-white flex flex-col border-t border-gray-200 shadow-2xl gap-2 items-center justify-center p-4">
+        <img src={ShowcaseImage} alt="showcase" className="w-full mt-10" />
+        <footer className="fixed bottom-0 left-0 z-20 w-full bg-white flex flex-col border-t border-gray-200 shadow-2xl gap-2 items-center justify-center p-4 text-center">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
             <a
@@ -179,9 +181,13 @@ function App() {
             </a>
             {/* All Rights Reserved. */}
           </span>
-          <span>
+          <span className="text-center w-full">
             This site is not affiliated to{" "}
-            <a href="chat.openai.com" target="_blank" className="underline">
+            <a
+              href="https://chat.openai.com"
+              target="_blank"
+              className="underline"
+            >
               ChatGPT
             </a>{" "}
             and{" "}
@@ -238,64 +244,62 @@ function App() {
             </h1>
           </div>
           {!isMobile ? (
-            <div className="flex h-full flex-col items-center justify-between w-full gap-5">
+            <div className="flex h-full flex-col items-center w-full">
               {!isUnwrappedAlready ? (
-                <>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <button className="relative w-[200px] inline-flex items-center justify-center px-6 py-8 overflow-hidden font-medium text-center text-black transition duration-300 ease-out border-2 border-b-4 border-black rounded-full shadow-md group">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="relative w-[200px] inline-flex items-center justify-center px-6 py-8 overflow-hidden font-medium text-center text-black transition duration-300 ease-out border-2 border-b-4 border-black rounded-full shadow-md group">
+                      {" "}
+                      <span className="absolute inset-0 flex items-center text-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
                         {" "}
-                        <span className="absolute inset-0 flex items-center text-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           {" "}
-                          <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            {" "}
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            ></path>{" "}
-                          </svg>{" "}
-                        </span>{" "}
-                        <span className="absolute flex items-center justify-left text-lg ml-10 w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease gap-8">
-                          {" "}
-                          Get Started{" "}
-                          <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="#000"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            ></path>
-                          </svg>
-                        </span>
-                        <span className="relative invisible" />
-                      </button>
-                    </DialogTrigger>
-                    <DialogContent className="w-3/4 max-w-full p-10 h-full overflow-y-auto justify-center">
-                      <OnboardingPage onSubmit={onGenerate} />
-                    </DialogContent>
-                  </Dialog>
-                </>
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          ></path>{" "}
+                        </svg>{" "}
+                      </span>{" "}
+                      <span className="absolute flex items-center justify-left text-lg ml-10 w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease gap-8">
+                        {" "}
+                        Get Started{" "}
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="#000"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          ></path>
+                        </svg>
+                      </span>
+                      <span className="relative invisible" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="w-3/4 max-w-full p-10 h-full overflow-y-auto justify-center">
+                    <OnboardingPage onSubmit={onGenerate} />
+                  </DialogContent>
+                </Dialog>
               ) : (
                 <Wrapped />
               )}
             </div>
           ) : (
             <h2 className="text-center">
-              Please open in desktop to generate your ChatGPT Wrapped
+              Please open in desktop to generate your ChatGPT UnWrapped
             </h2>
           )}
         </>
@@ -316,7 +320,11 @@ function App() {
         </span>
         <span>
           This site is not affiliated to{" "}
-          <a href="chat.openai.com" target="_blank" className="underline">
+          <a
+            href="https://chat.openai.com"
+            target="_blank"
+            className="underline"
+          >
             ChatGPT
           </a>{" "}
           and{" "}

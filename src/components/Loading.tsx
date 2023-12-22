@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const messages = [
   "Your chat data is morphing into insights... the transformation is getting started!",
   "We're consulting the chat oracles for the answers you seek... just a moment!",
-  "Don't worry, be analyzing! Your ChatGPT wrapped will be here soon. ",
+  "Don't worry, be analyzing! Your ChatGPT UnWrapped will be here soon. ",
   "A portal to your ChatGPT soul is opening... prepare to be surprised!",
   "Building a time machine to revisit all your ChatGPT moments...",
   "Taking your ChatGPT history on a journey through the data wormhole… buckle up!",

@@ -1,3 +1,5 @@
+/// <reference types="vite-plugin-svgr/client" />
+import "@/logo.css";
 import { useEffect, useState } from "react";
 import { initDB } from "react-indexed-db-hook";
 import { DBConfig } from "@/lib/dbconfig";
@@ -10,6 +12,7 @@ import Loading from "@/components/Loading";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import useInterval from "@/lib/poll";
 import { cn } from "./lib/utils";
+import AnimatedLogo from "@/assets/animated_logo.svg?react";
 
 initDB(DBConfig);
 
@@ -154,9 +157,12 @@ function App() {
   if (isMobile) {
     return (
       <div className="flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20 fullPageBackground">
-        <h1 className="text-5xl md:text-3xl bricolage text-transparent bg-clip-text font-medium bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
-          ChatGPT UnWrapped 2023
-        </h1>
+        <div className="flex flex-col gap-5 items-center justify-center">
+          <AnimatedLogo className="w-20 h-20" />
+          <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
+            ChatGPT UnWrapped 2023
+          </h1>
+        </div>
         <h2 className="text-center">
           Please open in desktop to generate your ChatGPT Wrapped
         </h2>
@@ -202,9 +208,12 @@ function App() {
     >
       {isJobRunning || isAnalysing ? (
         <>
-          <h1 className="text-5xl relative md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
-            ChatGPT UnWrapped 2023
-          </h1>
+          <div className="flex flex-col gap-5 items-center justify-center">
+            <AnimatedLogo className="w-20 h-20" />
+            <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
+              ChatGPT UnWrapped 2023
+            </h1>
+          </div>
           <div className="blob"></div>
           <Loading />
           <div className="flex flex-col gap-5 items-center w-full">
@@ -221,9 +230,12 @@ function App() {
         </>
       ) : (
         <>
-          <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
-            ChatGPT UnWrapped 2023
-          </h1>
+          <div className="flex flex-col gap-5 items-center justify-center">
+            <AnimatedLogo className="w-20 h-20" />
+            <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
+              ChatGPT UnWrapped 2023
+            </h1>
+          </div>
           {!isMobile ? (
             <div className="flex h-full flex-col items-center justify-between w-full gap-5">
               {!isUnwrappedAlready ? (

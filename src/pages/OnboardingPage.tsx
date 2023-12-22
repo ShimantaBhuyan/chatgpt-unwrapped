@@ -77,7 +77,7 @@ const InstallSteps = () => {
       <Step className="text-red-500">
         Refresh Your Screen While On Network Tab
       </Step>
-      <Step>Search &apos;sess&apos; and click green highlight</Step>
+      <Step>Search &apos;Bearer&apos; and click green highlight</Step>
       <img src="/onboarding-inst-3.png" alt="Instructions" />
       <Step>Scroll and copy the session from the right side</Step>
       <img src="/onboarding-inst-4.png" alt="Instructions" />

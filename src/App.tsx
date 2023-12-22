@@ -149,10 +149,10 @@ function App() {
   const clearPoll = useInterval(pollProgress, POLL_INTERVAL);
 
   useEffect(() => {
-    if (!isJobRunning && !isAnalysing && isUnwrappedAlready) {
+    if (isUnwrappedAlready) {
       clearPoll();
     }
-  }, [isJobRunning, isAnalysing, isUnwrappedAlready, clearPoll]);
+  }, [isUnwrappedAlready, clearPoll]);
 
   if (isMobile) {
     return (

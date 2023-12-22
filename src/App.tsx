@@ -101,7 +101,8 @@ function App() {
   const POLL_INTERVAL = 15000;
 
   const pollProgress = async () => {
-    if (jobID == undefined || jobID.length == 0) {
+    if (jobID == undefined || jobID.length == 0 || isUnwrappedAlready) {
+      clearPoll();
       return;
     }
     const response = await fetch(
@@ -138,8 +139,8 @@ function App() {
           setIsJobRunning(false);
           setIsAnalysing(false);
         },
-        (error) => {
-          console.log("ERROR: ", error);
+        () => {
+          // console.log("ERROR: ", error);
           alert("Something went wrong. Please try again.");
         }
       );

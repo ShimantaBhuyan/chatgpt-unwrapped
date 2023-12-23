@@ -158,19 +158,41 @@ function App() {
 
   if (isMobile) {
     return (
-      <div className="flex min-h-screen flex-col justify-center items-center p-8 pb-10 lg:p-24 lg:pt-16 gap-20 fullPageBackground">
+      <div className="flex min-h-screen flex-col justify-center items-center p-8 pb-10 lg:p-24 lg:pt-16 gap-10 fullPageBackground">
         <div className="flex flex-col gap-5 items-center justify-center">
           <AnimatedLogo className="w-20 h-20" />
           <h1 className="text-5xl md:text-7xl font-medium bricolage text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 text-center">
             ChatGPT UnWrapped 2023
           </h1>
-          <h2 className="text-lg font-semibold">
+          <h2 className="font-semibold text-center">
             Over 10,000 conversations unwrapped!
           </h2>
         </div>
         <h2 className="text-center">
           Please open in desktop to generate your ChatGPT Wrapped
         </h2>
+        <div className="flex flex-col gap-2 items-center justify-center">
+          <p className="text-xs">As seen on</p>
+          <div className="flex items-center space-x-2">
+            <div className="h-7 w-7 overflow-hidden rounded-wt">
+              <figure className="flex-shrink-0 aspect-square relative h-full overflow-hidden w-full">
+                <img
+                  className="absolute inset-0 h-full w-full object-cover"
+                  width="100"
+                  height="100"
+                  src="https://news.bensbites.co/images/logo.jpg"
+                  alt="Ben's Bites logo"
+                />
+              </figure>
+            </div>
+            <a
+              className="uppercase sm:block text-md font-bold underline"
+              href="https://bensbites.beehiiv.com/p/daily-digest-reality-ai-jobs"
+            >
+              Ben's Bites
+            </a>
+          </div>
+        </div>
         <img src={ShowcaseImage} alt="showcase" className="w-full mt-10" />
         <footer className="fixed bottom-0 left-0 z-20 w-full bg-white flex flex-col border-t border-gray-200 shadow-2xl gap-2 items-center justify-center p-4 text-center">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
@@ -257,53 +279,78 @@ function App() {
           {!isMobile ? (
             <div className="flex h-full flex-col items-center w-full">
               {!isUnwrappedAlready ? (
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <button className="relative w-[200px] inline-flex items-center justify-center px-6 py-8 overflow-hidden font-medium text-center text-black transition duration-300 ease-out border-2 border-b-4 border-black rounded-full shadow-md group">
-                      {" "}
-                      <span className="absolute inset-0 flex items-center text-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
+                <>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="relative w-[200px] inline-flex items-center justify-center px-6 py-8 overflow-hidden font-medium text-center text-black transition duration-300 ease-out border-2 border-b-4 border-black rounded-full shadow-md group">
                         {" "}
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
+                        <span className="absolute inset-0 flex items-center text-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
                           {" "}
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                          ></path>{" "}
-                        </svg>{" "}
-                      </span>{" "}
-                      <span className="absolute flex items-center justify-left text-lg ml-10 w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease gap-8">
-                        {" "}
-                        Get Started{" "}
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          stroke="#000"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                          ></path>
-                        </svg>
-                      </span>
-                      <span className="relative invisible" />
-                    </button>
-                  </DialogTrigger>
-                  <DialogContent className="w-3/4 max-w-full p-10 h-full overflow-y-auto justify-center">
-                    <OnboardingPage onSubmit={onGenerate} />
-                  </DialogContent>
-                </Dialog>
+                          <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            {" "}
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M14 5l7 7m0 0l-7 7m7-7H3"
+                            ></path>{" "}
+                          </svg>{" "}
+                        </span>{" "}
+                        <span className="absolute flex items-center justify-left text-lg ml-10 w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease gap-8">
+                          {" "}
+                          Get Started{" "}
+                          <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="#000"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M14 5l7 7m0 0l-7 7m7-7H3"
+                            ></path>
+                          </svg>
+                        </span>
+                        <span className="relative invisible" />
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="w-3/4 max-w-full p-10 h-full overflow-y-auto justify-center">
+                      <OnboardingPage onSubmit={onGenerate} />
+                    </DialogContent>
+                  </Dialog>
+
+                  <div className="flex flex-col gap-2 items-center justify-center mt-20">
+                    <p className="text-xs">As seen on</p>
+                    <div className="flex items-center space-x-2">
+                      <div className="h-7 w-7 overflow-hidden rounded-wt">
+                        <figure className="flex-shrink-0 aspect-square relative h-full overflow-hidden w-full">
+                          <img
+                            className="absolute inset-0 h-full w-full object-cover"
+                            width="100"
+                            height="100"
+                            src="https://news.bensbites.co/images/logo.jpg"
+                            alt="Ben's Bites logo"
+                          />
+                        </figure>
+                      </div>
+                      <a
+                        className="uppercase sm:block text-md font-bold underline"
+                        href="https://bensbites.beehiiv.com/p/daily-digest-reality-ai-jobs"
+                      >
+                        Ben's Bites
+                      </a>
+                    </div>
+                  </div>
+                </>
               ) : (
                 <Wrapped />
               )}

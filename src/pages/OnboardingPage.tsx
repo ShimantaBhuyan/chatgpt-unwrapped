@@ -51,14 +51,14 @@ const InstallSteps = () => {
           <p className="text-center">Mac:</p>
           <pre className="my-2 text-center">
             <code className="bg-gray-100 p-2 rounded-md text-sm">
-              cmd + option + i
+              cmd + option + j
             </code>
           </pre>
           <br></br>
           <p className="text-center">Windows:</p>
           <pre className="my-2 text-center">
             <code className="bg-gray-100 p-2 rounded-md text-sm">
-              ctrl + shift + i
+              ctrl + shift + j
             </code>
           </pre>
         </div>

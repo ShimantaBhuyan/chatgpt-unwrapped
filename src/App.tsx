@@ -5,7 +5,10 @@ import { initDB } from "react-indexed-db-hook";
 import { DBConfig } from "@/lib/dbconfig";
 import { useIndexedDB } from "react-indexed-db-hook";
 import OnboardingPage from "@/pages/OnboardingPage";
-import { LOCAL_STORAGE_KEY } from "@/lib/constants";
+import {
+  LOCAL_STORAGE_KEY,
+  LOCAL_STORAGE_OPENAI_API_KEY,
+} from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
 import Wrapped from "@/pages/Wrapped";
 import Loading from "@/components/Loading";
@@ -21,6 +24,12 @@ function App() {
   const { add, getByID } = useIndexedDB("chatgpt-unwrapped");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [__, setApiKey] = useLocalStorage<string>(
+    LOCAL_STORAGE_OPENAI_API_KEY,
+    "",
+    true
+  );
   const [jobID, setJobID] = useLocalStorage<string>("JOB_ID", "", true);
   const [isJobRunning, setIsJobRunning] = useState(false);
   const [isAnalysing, setIsAnalysing] = useState(false);
@@ -63,13 +72,14 @@ function App() {
     });
   }, [getByID]);
 
-  const onGenerate = async (token: string) => {
+  const onGenerate = async (token: string, openAiAPIKey: string) => {
     if (!token) {
       alert("Please enter your OpenAI session key");
       setIsAnalysing(false);
     }
 
     setKey(token);
+    setApiKey(openAiAPIKey);
     setIsAnalysing(true);
     const response = await fetch(
       `${import.meta.env.VITE_BASE_API_ENDPOINT}/get-wrapped`,
@@ -77,6 +87,7 @@ function App() {
         method: "POST",
         body: JSON.stringify({
           token: token,
+          apiKey: openAiAPIKey,
         }),
         headers: {
           "Content-Type": "application/json",

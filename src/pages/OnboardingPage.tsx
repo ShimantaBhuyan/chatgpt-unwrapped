@@ -8,7 +8,10 @@ import {
 } from "@/components/ui/card";
 // import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { LOCAL_STORAGE_KEY } from "@/lib/constants";
+import {
+  LOCAL_STORAGE_KEY,
+  LOCAL_STORAGE_OPENAI_API_KEY,
+} from "@/lib/constants";
 // import useLocalStorage from "@/lib/use-local-storage";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
@@ -95,17 +98,20 @@ const InstallSteps = () => {
 const OnboardingPage = ({
   onSubmit,
 }: {
-  onSubmit: (token: string) => void;
+  onSubmit: (token: string, openAiAPIKey: string) => void;
 }) => {
   //   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [token, setToken] = useState<string>("");
+  const [openAiAPIKey, setOpenAiAPIKey] = useState<string>("");
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === LOCAL_STORAGE_KEY) {
       setToken(value);
+    } else if (name === LOCAL_STORAGE_OPENAI_API_KEY) {
+      setOpenAiAPIKey(value);
     }
   };
 
@@ -158,7 +164,34 @@ const OnboardingPage = ({
                   className="my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
                   placeholder="5q293fh..."
                 />
-                <Button onClick={() => onSubmit(token)} disabled={token === ""}>
+                {/* <Button onClick={() => onSubmit(token)} disabled={token === ""}>
+                  Get your ChatGPT UnWrapped!
+                </Button> */}
+              </CardHeader>
+            </Card>
+            <Card className="mt-4">
+              <CardHeader className="flex-col gap-4 items-center">
+                <CardTitle className="flex gap-2 flex-row items-center">
+                  OpenAI API Key:
+                </CardTitle>
+                <p>
+                  Free generations have been temprarily disabled due to my large
+                  OpenAI bill 😭, please put in your API Key with GPT-4-Turbo
+                  access to continue
+                </p>
+                <Input
+                  type="text"
+                  name={LOCAL_STORAGE_OPENAI_API_KEY}
+                  onChange={onChange}
+                  required
+                  value={openAiAPIKey ?? ""}
+                  className="my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
+                  placeholder="sk-dsf4bk1424"
+                />
+                <Button
+                  onClick={() => onSubmit(token, openAiAPIKey)}
+                  disabled={openAiAPIKey === ""}
+                >
                   Get your ChatGPT UnWrapped!
                 </Button>
               </CardHeader>

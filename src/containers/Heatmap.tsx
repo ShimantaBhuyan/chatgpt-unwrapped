@@ -63,7 +63,7 @@ function Heatmap({ conversationHistory }: { conversationHistory: Week[] }) {
 
     // Assign color for each case
     if (value === max) colors[value] = "bg-yellow-500/90";
-    else if (rounded === 0) colors[value] = "bg-gray-200";
+    else if (rounded === 0) colors[value] = "bg-gray-300";
     else if (rounded === 0.25) colors[value] = "bg-indigo-300/90";
     else if (rounded === 0.5) colors[value] = "bg-indigo-500/90";
     else if (rounded === 0.75) colors[value] = "bg-indigo-700/90";
@@ -71,29 +71,11 @@ function Heatmap({ conversationHistory }: { conversationHistory: Week[] }) {
   });
 
   return (
-    <div className="p-5 w-full max-w-[75%] flex flex-col items-start group relative bg-gray-200/50 self-center">
-      {/* <div className="flex flex-col items-baseline sm:flex-row sm:justify-between w-full">
-        <h1 className="mb-2 text-primary text-xl font-medium text-left whitespace-nowrap">
-          {
-            [
-              "You show up daily",
-              "You have no commitment issues",
-              "Your grind never stops",
-            ][~~(Math.random() * 3)]
-          }
-        </h1>
-        <div className="space-x-1 mb-4 sm:mb-0">
-          {maxDate && max > 9 && (
-            <span className="text-primary">
-              Top day: {max} on {maxDate}
-            </span>
-          )}
-        </div> 
-      </div> */}
+    <div className="p-5 w-full flex flex-col items-start group relative self-center">
       <div className="grid gap-0.5 heatmap w-full self-center">
         {/* Placeholders to account for the year starting on a Saturday */}
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="w-3 h-3 bg-gray-200" content="" />
+          <div key={i} className="w-3 h-3 bg-gray-300" content="" />
         ))}
         {/* Weeks */}
         {weeks.map(
@@ -141,11 +123,6 @@ function Heatmap({ conversationHistory }: { conversationHistory: Week[] }) {
             )
         )}
       </div>
-      {/* <div className="flex flex-row">
-        {showHide && (
-          <Hide stat={stat} user={user} hidden={hidden} setHidden={setHidden} />
-        )}
-      </div> */}
     </div>
   );
 }

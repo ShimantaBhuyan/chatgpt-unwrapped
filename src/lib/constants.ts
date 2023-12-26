@@ -22,3 +22,7 @@ export interface contributionDays {
 export interface Week {
   contributionDays: contributionDays[];
 }
+
+export type DailyResponse = { day: string; Conversations: number };
+export type WeeklyResponse = { week: string; Conversations: number };
+export type MonthlyResponse = { month: string; Conversations: number };

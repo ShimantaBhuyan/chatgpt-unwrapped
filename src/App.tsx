@@ -165,7 +165,7 @@ function App() {
     if (isUnwrappedAlready) {
       clearPoll();
     }
-  }, [isUnwrappedAlready, clearPoll]);
+  }, [isUnwrappedAlready, clearPoll, getByID]);
 
   if (isMobile) {
     return (
@@ -176,7 +176,7 @@ function App() {
             ChatGPT UnWrapped 2023
           </h1>
           <h2 className="font-semibold text-center">
-            Over 25,000 conversations unwrapped!
+            Over 30,000 conversations unwrapped!
           </h2>
         </div>
         <h2 className="text-center">
@@ -245,7 +245,7 @@ function App() {
     // >
     <div
       className={cn(
-        "flex min-h-screen flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20 pb-24",
+        "flex min-h-screen relative flex-col justify-center items-center p-8 lg:p-24 lg:pt-16 gap-20 pb-24",
         !isUnwrappedAlready && !isAnalysing && "fullPageBackground"
       )}
     >
@@ -257,7 +257,7 @@ function App() {
               ChatGPT UnWrapped 2023
             </h1>
             <h2 className="text-lg font-semibold">
-              Over 25,000 conversations unwrapped!
+              Over 30,000 conversations unwrapped!
             </h2>
           </div>
           <div className="blob"></div>
@@ -283,7 +283,7 @@ function App() {
             </h1>
             {!isUnwrappedAlready && (
               <h2 className="text-lg font-semibold">
-                Over 25,000 conversations unwrapped!
+                Over 30,000 conversations unwrapped!
               </h2>
             )}
           </div>

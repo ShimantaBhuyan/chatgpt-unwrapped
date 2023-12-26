@@ -182,12 +182,19 @@ const Wrapped = () => {
           </DialogTrigger>
           <DialogContent className="w-3/4 max-w-full p-0 h-full overflow-y-auto justify-center items-center">
             <div
-              className="min-w-[885px] min-h-[500px] w-[885px] h-[500px] rounded-lg px-5 py-8 flex flex-col gap-6 justify-between bg-gradient-to-r from-rose-100 to-teal-100 heatmap:*:bg-gray-100 pointer-events-none"
+              className="min-w-[885px] min-h-[500px] w-[885px] h-[500px] rounded-lg px-5 py-8 flex flex-col gap-4 justify-between bg-gradient-to-r from-rose-100 to-teal-100 heatmap:*:bg-gray-100 pointer-events-none"
               ref={(el) => (wrapperRef.current = el)}
             >
-              <h2 className="text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 font-semibold text-2xl text-center">
-                {userTitle.replaceAll('"', "")}
-              </h2>
+              <div className="flex w-full flex-col gap-1 items-center">
+                <h2 className="text-transparent bg-clip-text bg-gradient-to-tl from-green-700 via-teal-900 to-indigo-600 font-semibold text-2xl text-center">
+                  {userTitle.replaceAll('"', "")}
+                </h2>
+                <p>
+                  I had a total of{" "}
+                  <span className="font-semibold">{allConversationsCount}</span>{" "}
+                  conversations!
+                </p>
+              </div>
 
               <div className="grid grid-cols-2 gap-4 px-5 items-center">
                 <div className="flex flex-col gap-2">

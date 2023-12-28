@@ -1,5 +1,4 @@
 export const LOCAL_STORAGE_KEY = "openai-key";
-export const LOCAL_STORAGE_OPENAI_API_KEY = "openai-api-key";
 
 export interface Conversation {
   id: string;

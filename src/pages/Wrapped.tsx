@@ -253,7 +253,7 @@ const Wrapped = () => {
                   </h1>
                 </div>
                 <h2 className="text-xs text-black">
-                  Over 30,000 conversations unwrapped!
+                  40,000+ conversations unwrapped!
                 </h2>
               </div>
             </div>

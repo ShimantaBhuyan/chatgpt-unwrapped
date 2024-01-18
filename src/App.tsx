@@ -165,7 +165,7 @@ function App() {
             ChatGPT UnWrapped 2023
           </h1>
           <h2 className="font-semibold text-center">
-            75,000+ conversations unwrapped!
+            80,000+ conversations unwrapped!
           </h2>
         </div>
         <h2 className="text-center">
@@ -246,7 +246,7 @@ function App() {
               ChatGPT UnWrapped 2023
             </h1>
             <h2 className="text-lg font-semibold">
-              75,000+ conversations unwrapped!
+              80,000+ conversations unwrapped!
             </h2>
           </div>
           <div className="blob"></div>
@@ -272,7 +272,7 @@ function App() {
             </h1>
             {!isUnwrappedAlready && (
               <h2 className="text-lg font-semibold">
-                75,000+ conversations unwrapped!
+                80,000+ conversations unwrapped!
               </h2>
             )}
           </div>
